@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Dating App - Premium Transition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0F0D0C;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .demo-container {
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            color: #F8F6F0;
+        }
+
+        .subtitle {
+            margin-bottom: 20px;
+            color: #C0C0C0;
+            font-size: 13px;
+            max-width: 500px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Fixed mobile phone border - Pixel 7 size */
+        .phone-frame {
+            width: 412px;
+            height: 915px;
+            border: 3px solid #1A1714;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 
+                0 30px 80px rgba(0,0,0,0.8),
+                0 0 60px rgba(212, 175, 55, 0.08),
+                inset 0 0 0 1px rgba(212, 175, 55, 0.1);
+            margin: 0 auto;
+        }
+
+        .viewport {
+            width: calc(100% - 40px);
+            height: 100%;
+            background: #161412;
+            overflow: hidden;
+            position: relative;
+            touch-action: none;
+            cursor: grab;
+            margin-left: 20px;
+        }
+
+        .viewport:active {
+            cursor: grabbing;
+        }
+
+        /* Vertical navigation indicator */
+        .nav-indicator {
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .nav-dot {
+            width: 3px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+        }
+
+        .nav-dot.active {
+            background: rgba(212, 175, 55, 0.7);
+            box-shadow: 
+                0 0 12px rgba(212, 175, 55, 0.6),
+                0 0 24px rgba(212, 175, 55, 0.3),
+                0 0 36px rgba(212, 175, 55, 0.15);
+            height: 48px;
+        }
+
+        .nav-dot.preview {
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+            height: 44px;
+            transition: all 0.2s ease-out;
+        }
+
+        .nav-dot.dimmed {
+            background: rgba(255, 255, 255, 0.08);
+            opacity: 0.5;
+            transition: all 0.2s ease-out;
+        }
+
+        .nav-dot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0) 0%, rgba(212, 175, 55, 0.3) 100%);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .nav-dot.active::before {
+            opacity: 1;
+        }
+
+.screen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 50px 40px 50px 30px;
+    text-align: left;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    
+    /* tactile texture */
+    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+    background-repeat: repeat;
+    
+    /* optional subtle backdrop blur */
+    backdrop-filter: blur(1px);
+}
+
+
+        .screen h2 {
+            font-size: 48px;
+            margin-bottom: 25px;
+            font-weight: 300;
+            letter-spacing: -1px;
+            color: #F8F6F0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .screen p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #E5E4E2;
+            max-width: 280px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Luxury warm dark palette */
+        .screen.screen1 {
+            background: linear-gradient(135deg, rgb(15, 13, 12) 0%, rgb(6, 7, 27) 100%);
+        }
+
+        .screen.screen2 {
+           background: linear-gradient(135deg, rgb(6, 7, 27) 0%, rgb(15, 13, 12) 100%);
+        }
+
+        .screen.screen3 {
+            background: linear-gradient(135deg, rgb(15, 13, 12) 0%, rgb(6, 7, 27) 100%);
+        }
+
+        /* Film grain texture overlay */
+        .screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+            mix-blend-mode: overlay;
+        }
+
+        /* Vignette for depth */
+        .screen::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.3) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Gold accent line */
+        .screen h2::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, #D4AF37, transparent);
+            margin: 20px 0 0 0;
+            opacity: 0.5;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        }
+
+        .instruction {
+            margin-top: 20px;
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        /* Content wrapper - subtle scale emphasis during crossfade */
+        .screen-content {
+            transform: scale(0.97);
+            transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+            will-change: transform;
+        }
+
+        .screen-content.active {
+            transform: scale(1);
+        }
+
+        @media (max-width: 450px) {
+            .phone-frame {
+                width: 100%;
+                max-width: 412px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Luxury Dating App</h1>
+        <p class="subtitle">Intentional transitions · Weighted interactions · Premium restraint</p>
+        
+        <div class="phone-frame">
+            <!-- Vertical navigation indicator -->
+            <div class="nav-indicator">
+                <div class="nav-dot active" data-index="0"></div>
+                <div class="nav-dot" data-index="1"></div>
+                <div class="nav-dot" data-index="2"></div>
+            </div>
+            
+            <div class="viewport" id="viewport">
+                <div class="screen screen1" data-screen="0">
+                    <div class="screen-content active">
+                        <h2>Welcome</h2>
+                        <p>Experience weighted, intentional transitions designed for premium video profiles</p>
+                    </div>
+                </div>
+                <div class="screen screen2" data-screen="1" style="opacity: 0; transform: translateY(12px);">
+                    <div class="screen-content">
+                        <h2>Discover</h2>
+                        <p>Subtle motion, refined blur, continuous crossfade with haptic feedback</p>
+                    </div>
+                </div>
+                <div class="screen screen3" data-screen="2" style="opacity: 0; transform: translateY(12px);">
+                    <div class="screen-content">
+                        <h2>Connect</h2>
+                        <p>Every detail calibrated for the private members club aesthetic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="instruction">Swipe Vertically</p>
+    </div>
+
+    <script>
+        class LuxuryTransition {
+            constructor(viewportId) {
+                this.viewport = document.getElementById(viewportId);
+                this.screens = Array.from(this.viewport.querySelectorAll('.screen'));
+                this.navDots = Array.from(document.querySelectorAll('.nav-dot'));
+                this.currentIndex = 0;
+                
+                this.startY = 0;
+                this.currentY = 0;
+                this.isDragging = false;
+                this.isTransitioning = false;
+                
+                // Timing - refined for continuous crossfade
+                this.TRANSITION_DURATION = 0.75; // Single smooth transition
+                
+                this.init();
+            }
+            
+            init() {
+                this.viewport.addEventListener('touchstart', this.onStart.bind(this), { passive: false });
+                this.viewport.addEventListener('touchmove', this.onMove.bind(this), { passive: false });
+                this.viewport.addEventListener('touchend', this.onEnd.bind(this));
+                
+                this.viewport.addEventListener('mousedown', this.onStart.bind(this));
+                this.viewport.addEventListener('mousemove', this.onMove.bind(this));
+                this.viewport.addEventListener('mouseup', this.onEnd.bind(this));
+                this.viewport.addEventListener('mouseleave', this.onEnd.bind(this));
+            }
+            
+            // Update navigation indicator
+            updateNavIndicator(targetIndex = null) {
+                const index = targetIndex !== null ? targetIndex : this.currentIndex;
+                this.navDots.forEach((dot, i) => {
+                    dot.classList.remove('active', 'preview', 'dimmed');
+                    if (i === index) {
+                        dot.classList.add('active');
+                    }
+                });
+            }
+            
+            // Haptic feedback
+            triggerHaptic(style = 'light') {
+                if ('vibrate' in navigator) {
+                    const patterns = {
+                        light: [5],
+                        medium: [10],
+                        success: [5, 50, 5]
+                    };
+                    navigator.vibrate(patterns[style]);
+                }
+            }
+            
+            onStart(e) {
+                if (this.isTransitioning) return;
+                
+                this.isDragging = true;
+                this.startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+                this.currentY = this.startY;
+                
+                this.triggerHaptic('light');
+            }
+            
+            onMove(e) {
+                if (!this.isDragging || this.isTransitioning) return;
+                
+                e.preventDefault();
+                this.currentY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+                const deltaY = this.startY - this.currentY;
+                
+                // Swipe up
+                if (deltaY > 0 && this.currentIndex < this.screens.length - 1) {
+                    const progress = Math.min(deltaY / 200, 1);
+                    this.updateTransition(progress, 'up');
+                }
+                // Swipe down
+                else if (deltaY < 0 && this.currentIndex > 0) {
+                    const progress = Math.min(Math.abs(deltaY) / 200, 1);
+                    this.updateTransition(progress, 'down');
+                }
+            }
+            
+            onEnd() {
+                if (!this.isDragging || this.isTransitioning) return;
+                
+                this.isDragging = false;
+                const deltaY = this.startY - this.currentY;
+                
+                // Intentional threshold: 140px (70% of 200px drag distance)
+                if (deltaY > 140 && this.currentIndex < this.screens.length - 1) {
+                    this.completeTransition('up');
+                }
+                else if (deltaY < -140 && this.currentIndex > 0) {
+                    this.completeTransition('down');
+                }
+                else {
+                    this.resetTransition();
+                }
+            }
+            
+            // Elastic resistance - luxury means weight
+            applyElasticResistance(progress) {
+                if (progress < 0.2) {
+                    // First 20% has strong resistance
+                    return progress * 0.35;
+                } else {
+                    // After breaking through, smooth release
+                    return 0.07 + ((progress - 0.2) * 1.15);
+                }
+            }
+            
+            updateTransition(rawProgress, direction) {
+                const progress = this.applyElasticResistance(rawProgress);
+                
+                // Show preview state at 55% raw progress (earlier visual feedback)
+                if (rawProgress > 0.55) {
+                    if (direction === 'up' && this.currentIndex < this.screens.length - 1) {
+                        this.navDots[this.currentIndex].classList.add('dimmed');
+                        this.navDots[this.currentIndex + 1].classList.add('preview');
+                        
+                        // Medium haptic at preview threshold (only once)
+                        if (rawProgress > 0.55 && rawProgress < 0.6) {
+                            this.triggerHaptic('medium');
+                        }
+                    } else if (direction === 'down' && this.currentIndex > 0) {
+                        this.navDots[this.currentIndex].classList.add('dimmed');
+                        this.navDots[this.currentIndex - 1].classList.add('preview');
+                        
+                        if (rawProgress > 0.55 && rawProgress < 0.6) {
+                            this.triggerHaptic('medium');
+                        }
+                    }
+                } else {
+                    this.navDots.forEach(dot => {
+                        dot.classList.remove('preview', 'dimmed');
+                    });
+                }
+                
+                if (direction === 'up') {
+                    const currentScreen = this.screens[this.currentIndex];
+                    const nextScreen = this.screens[this.currentIndex + 1];
+                    
+                    if (!nextScreen) return;
+                    
+                    // Current screen: subtle movement with refined blur
+                    const currentTranslate = -progress * 25;
+                    const currentBlur = progress * 3.5;
+                    const shadowIntensity = progress * 0.3;
+                    const currentOpacity = 1 - (progress * 0.75);
+                    
+                    currentScreen.style.transform = `translateY(${currentTranslate}px)`;
+                    currentScreen.style.opacity = currentOpacity;
+                    currentScreen.style.filter = `blur(${currentBlur}px)`;
+                    currentScreen.style.boxShadow = `0 20px 60px rgba(0,0,0,${shadowIntensity})`;
+                    
+                    // Next screen: rise from below, always crisp
+                    const nextTranslate = 12 - (37 * progress);
+                    const nextOpacity = Math.min(progress * 1.3, 1);
+                    
+                    nextScreen.style.transform = `translateY(${nextTranslate}px)`;
+                    nextScreen.style.opacity = nextOpacity;
+                    nextScreen.style.filter = 'blur(0px)';
+                    
+                } else if (direction === 'down') {
+                    const currentScreen = this.screens[this.currentIndex];
+                    const prevScreen = this.screens[this.currentIndex - 1];
+                    
+                    if (!prevScreen) return;
+                    
+                    // Current screen: descend with blur
+                    const currentTranslate = progress * 25;
+                    const currentBlur = progress * 3.5;
+                    const shadowIntensity = progress * 0.3;
+                    const currentOpacity = 1 - (progress * 0.75);
+                    
+                    currentScreen.style.transform = `translateY(${currentTranslate}px)`;
+                    currentScreen.style.opacity = currentOpacity;
+                    currentScreen.style.filter = `blur(${currentBlur}px)`;
+                    currentScreen.style.boxShadow = `0 -20px 60px rgba(0,0,0,${shadowIntensity})`;
+                    
+                    // Previous screen: descend from above, crisp
+                    const prevTranslate = -12 + (37 * progress);
+                    const prevOpacity = Math.min(progress * 1.3, 1);
+                    
+                    prevScreen.style.transform = `translateY(${prevTranslate}px)`;
+                    prevScreen.style.opacity = prevOpacity;
+                    prevScreen.style.filter = 'blur(0px)';
+                }
+            }
+            
+            completeTransition(direction) {
+                this.isTransitioning = true;
+                
+                const timing = 'cubic-bezier(0.19, 1, 0.22, 1)';
+                const currentScreen = this.screens[this.currentIndex];
+                const targetIndex = direction === 'up' ? this.currentIndex + 1 : this.currentIndex - 1;
+                const nextScreen = this.screens[targetIndex];
+                
+                const currentContent = currentScreen.querySelector('.screen-content');
+                const nextContent = nextScreen.querySelector('.screen-content');
+                
+                // Deactivate current content (scale down slightly)
+                currentContent.classList.remove('active');
+                
+                // Activate next content (scale up to 1) - happens simultaneously with crossfade
+                nextContent.classList.add('active');
+                
+                // Crossfade backgrounds and content together (750ms)
+                currentScreen.style.transition = `all ${this.TRANSITION_DURATION}s ${timing}`;
+                nextScreen.style.transition = `all ${this.TRANSITION_DURATION}s ${timing}`;
+                
+                currentScreen.style.opacity = '0';
+                currentScreen.style.filter = 'blur(4px)';
+                currentScreen.style.transform = direction === 'up' ? 'translateY(-25px)' : 'translateY(25px)';
+                
+                nextScreen.style.opacity = '1';
+                nextScreen.style.filter = 'blur(0px)';
+                nextScreen.style.transform = 'translateY(0)';
+                
+                // Update state and unlock after transition completes
+                setTimeout(() => {
+                    this.currentIndex = targetIndex;
+                    this.updateNavIndicator();
+                    this.isTransitioning = false;
+                    this.triggerHaptic('success');
+                    
+                    // Clean up transitions
+                    currentScreen.style.transition = '';
+                    nextScreen.style.transition = '';
+                    
+                    // Reset exited screen to default hidden state
+                    setTimeout(() => {
+                        currentScreen.style.opacity = '0';
+                        currentScreen.style.filter = 'blur(0px)';
+                        currentScreen.style.transform = 'translateY(12px)';
+                        currentScreen.style.boxShadow = '';
+                    }, 50);
+                    
+                }, this.TRANSITION_DURATION * 1000);
+            }
+            
+            resetTransition() {
+                const currentScreen = this.screens[this.currentIndex];
+                const nextScreen = this.screens[this.currentIndex + 1];
+                const prevScreen = this.screens[this.currentIndex - 1];
+                
+                // Clear all preview states
+                this.navDots.forEach(dot => {
+                    dot.classList.remove('preview', 'dimmed');
+                });
+                
+                // Elastic spring-back animation
+                const springTiming = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+                const springDuration = 0.45;
+                
+                // Reset current screen
+                currentScreen.style.transition = `all ${springDuration}s ${springTiming}`;
+                currentScreen.style.transform = 'translateY(0)';
+                currentScreen.style.opacity = '1';
+                currentScreen.style.filter = 'blur(0px)';
+                currentScreen.style.boxShadow = '';
+                
+                // Reset neighboring screens
+                if (nextScreen) {
+                    nextScreen.style.transition = `all ${springDuration}s ${springTiming}`;
+                    nextScreen.style.transform = 'translateY(12px)';
+                    nextScreen.style.opacity = '0';
+                    nextScreen.style.filter = 'blur(0px)';
+                    
+                    // Reset content scale
+                    const nextContent = nextScreen.querySelector('.screen-content');
+                    nextContent.classList.remove('active');
+                }
+                
+                if (prevScreen) {
+                    prevScreen.style.transition = `all ${springDuration}s ${springTiming}`;
+                    prevScreen.style.transform = 'translateY(-12px)';
+                    prevScreen.style.opacity = '0';
+                    prevScreen.style.filter = 'blur(0px)';
+                    
+                    // Reset content scale
+                    const prevContent = prevScreen.querySelector('.screen-content');
+                    prevContent.classList.remove('active');
+                }
+                
+                // Clean up
+                setTimeout(() => {
+                    currentScreen.style.transition = '';
+                    if (nextScreen) nextScreen.style.transition = '';
+                    if (prevScreen) prevScreen.style.transition = '';
+                }, springDuration * 1000);
+            }
+        }
+        
+        // Initialize
+        new LuxuryTransition('viewport');
+    </script>
+</body>
+</html>
