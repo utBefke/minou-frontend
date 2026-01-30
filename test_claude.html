@@ -177,17 +177,14 @@
         }
 
         /* Luxury warm dark palette */
-        .screen.screen1 {
-            background: linear-gradient(135deg, rgb(15, 13, 12) 0%, rgb(6, 7, 27) 100%);
+        .screen.screen1,.screen.screen3,.screen.screen5,.screen.screen7 {
+            background: linear-gradient(135deg, rgb(245, 17, 17) 0%, rgba(11, 13, 48, 0.5) 100%);
         }
 
-        .screen.screen2 {
-           background: linear-gradient(135deg, rgb(6, 7, 27) 0%, rgb(15, 13, 12) 100%);
+        .screen.screen2,.screen.screen4,.screen.screen,.screen.screen8 {
+           background: linear-gradient(135deg, rgba(11, 13, 48, 0.5) 0%, rgba(15, 15, 15, 0.5) 100%);
         }
 
-        .screen.screen3 {
-            background: linear-gradient(135deg, rgb(15, 13, 12) 0%, rgb(6, 7, 27) 100%);
-        }
 
         /* Film grain texture overlay */
         .screen::before {
@@ -264,17 +261,39 @@
         
         <div class="phone-frame">
             <!-- Vertical navigation indicator -->
-            <div class="nav-indicator">
-                <div class="nav-dot active" data-index="0"></div>
-                <div class="nav-dot" data-index="1"></div>
-                <div class="nav-dot" data-index="2"></div>
-            </div>
+<div class="nav-indicator">
+    <div class="nav-dot active" data-index="0"></div>
+    <div class="nav-dot" data-index="1"></div>
+    <div class="nav-dot" data-index="2"></div>
+    <div class="nav-dot" data-index="3"></div>
+    <div class="nav-dot" data-index="4"></div>
+    <div class="nav-dot" data-index="5"></div>
+    <div class="nav-dot" data-index="6"></div>
+    <div class="nav-dot" data-index="7"></div>
+    <div class="nav-dot" data-index="8"></div>
+    <div class="nav-dot" data-index="9"></div>
+    <div class="nav-dot" data-index="10"></div>
+</div>
+
             
             <div class="viewport" id="viewport">
                 <div class="screen screen1" data-screen="0">
                     <div class="screen-content active">
                         <h2>Welcome</h2>
                         <p>Experience weighted, intentional transitions designed for premium video profiles</p>
+                        <button id="jumpToLast" style="
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #D4AF37;
+    color: #161412;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(212,175,55,0.3);
+    transition: transform 0.2s ease;
+">Go to Connect</button>
+
                     </div>
                 </div>
                 <div class="screen screen2" data-screen="1" style="opacity: 0; transform: translateY(12px);">
@@ -289,6 +308,63 @@
                         <p>Every detail calibrated for the private members club aesthetic</p>
                     </div>
                 </div>
+                <!-- Additional Screens Template -->
+<div class="screen screen4" data-screen="3" style="opacity: 0; transform: translateY(12px);">
+    <div class="screen-content">
+        <h2>Screen 4</h2>
+        <p>Placeholder content for screen 4.</p>
+    </div>
+</div>
+
+<div class="screen screen5" data-screen="4" style="opacity: 0; transform: translateY(12px);">
+    <div class="screen-content">
+        <h2>Screen 5</h2>
+        <p>Placeholder content for screen 5.</p>
+    </div>
+</div>
+
+<div class="screen screen6" data-screen="5" style="opacity: 0; transform: translateY(12px);">
+    <div class="screen-content">
+        <h2>Screen 6</h2>
+        <p>Placeholder content for screen 6.</p>
+    </div>
+</div>
+
+<div class="screen screen7" data-screen="6" style="opacity: 0; transform: translateY(12px);">
+    <div class="screen-content">
+        <h2>Screen 7</h2>
+        <p>Placeholder content for screen 7.</p>
+    </div>
+</div>
+
+<div class="screen screen8" data-screen="7" style="opacity: 0; transform: translateY(12px);">
+    <div class="screen-content">
+        <h2>Screen 8</h2>
+        <p>Placeholder content for screen 8.</p>
+    </div>
+</div>
+
+<div class="screen screen9" data-screen="8" style="opacity: 0; transform: translateY(12px);">
+    <div class="screen-content">
+        <h2>Screen 9</h2>
+        <p>Placeholder content for screen 9.</p>
+    </div>
+</div>
+
+<div class="screen screen10" data-screen="9" style="opacity: 0; transform: translateY(12px);">
+    <div class="screen-content">
+        <h2>Screen 10</h2>
+        <p>Placeholder content for screen 10.</p>
+    </div>
+</div>
+
+<div class="screen screen11" data-screen="10" style="opacity: 0; transform: translateY(12px);">
+    <div class="screen-content">
+        <h2>Screen 11</h2>
+        <p>Placeholder content for screen 11.</p>
+    </div>
+</div>
+
             </div>
         </div>
         <p class="instruction">Swipe Vertically</p>
@@ -337,14 +413,15 @@
             
             // Haptic feedback
             triggerHaptic(style = 'light') {
-                if ('vibrate' in navigator) {
-                    const patterns = {
-                        light: [5],
-                        medium: [10],
-                        success: [5, 50, 5]
-                    };
-                    navigator.vibrate(patterns[style]);
-                }
+                // if ('vibrate' in navigator) {
+                //     const patterns = {
+                //         light: [5],
+                //         medium: [10],
+                //         success: [5, 50, 5]
+                //     };
+                //     navigator.vibrate(patterns[style]);
+                // }
+                console.log("hapticFeedback")
             }
             
             onStart(e) {
@@ -586,10 +663,14 @@
                     if (prevScreen) prevScreen.style.transition = '';
                 }, springDuration * 1000);
             }
+
         }
         
         // Initialize
         new LuxuryTransition('viewport');
+
+
+
     </script>
 </body>
 </html>
