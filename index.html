@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#000000" />
+  <title>minou</title>
+  <style>
+    /* Ensure html/body fill viewport */
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: pink;
+      position: fixed; /* prevents mobile bounce scroll */
+    }
+    
+    /* CSS variable for real viewport height on mobile */
+    :root {
+      --app-height: 100vh;
+    }
+    
+    #app {
+      height: var(--app-height);
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+  </style>
+  <script>
+    // Mobile viewport height fix for iOS Safari / Chrome
+    function setAppHeight() {
+      const vh = window.innerHeight;
+      document.documentElement.style.setProperty('--app-height', `${vh}px`);
+    }
+    
+    window.addEventListener('resize', setAppHeight);
+    window.addEventListener('orientationchange', setAppHeight);
+    setAppHeight();
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
